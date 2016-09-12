@@ -1,1 +1,1 @@
-print "I am a test for Travis CI!"
+print("I am a test for Travis CI!")
