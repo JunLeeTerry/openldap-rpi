@@ -5,15 +5,15 @@ machine:
     - docker
 
 dependencies:
-  override:
+  pre:
     - sudo apt-get update
     - sudo apt-get install -y --no-install-recommends qemu-user-static binfmt-support
     - sudo update-binfmts --enable qemu-arm
     - sudo update-binfmts --display qemu-arm
-    - docker build -t openldap .
-    - docker run -d -p 5000:389 -e SLAPD_PASSWORD="abc123_" -e SLAPD_DOMAIN="dorry.com" --restart=always --name openldap -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static openldap
 
 test:
   override:
+    - docker build -t openldap .
+    - docker run -d -p 5000:389 -e SLAPD_PASSWORD="abc123_" -e SLAPD_DOMAIN="dorry.com" --restart=always --name openldap -v /usr/bin/qemu-arm-static:/usr/bin/qemu-arm-static openldap
     - docker ps -a
     - python tests.py
