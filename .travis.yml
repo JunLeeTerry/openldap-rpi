@@ -20,9 +20,7 @@ install:
 before_script:
   - pip install mock
   - pip install requests
-  - pip install feedparser
 
 script:
-  - docker images
   - docker ps -a
   - python tests.py
